@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('No-op') {
             steps {
-                sh 'ls'
+                sh 'echo "Fail!"; exit 0'
             }
         }
     }
@@ -20,7 +20,10 @@ pipeline {
         }
         failure {
             echo 'I failed :('
-        }
+            mail to: 'user@localhost',
+            subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+            body: "Something is wrong with ${env.BUILD_URL}"
+	}
         changed {
             echo 'Things were different before...'
         }
