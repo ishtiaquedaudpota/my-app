@@ -1,24 +1,32 @@
 pipeline {
     agent any
+    tools {
+        maven 'maven'
+        jdk 'java'
+    }
     stages {
-        /* "Build" and "Test" stages omitted */
-
-        stage('Deploy - Staging') {
+        stage ('Initialize') {
             steps {
-                sh './deploy staging'
-                sh './run-smoke-tests'
+                sh '''
+                    echo "PATH = ${PATH}"
+                    echo "M2_HOME = ${M2_HOME}"
+                '''
             }
         }
 
-        stage('Sanity check') {
+        stage ('Build') {
             steps {
-                input "Does the staging environment look ok?"
+              sh 'mvn sonar:sonar -Dsonar.login=8d0f68f61c197098070494aa0ab186be71b9260f'
+            }
+            post {
+                success {
+                    junit 'target/surefire-reports/**/*.xml'
+                }
             }
         }
-
-        stage('Deploy - Production') {
+        stage ('Run') {
             steps {
-                sh './deploy production'
+              sh './scripts/run.sh'
             }
         }
     }

@@ -1,2 +1,0 @@
-#!/bin/bash
-echo "Smoke tests Failed!"; exit 1
