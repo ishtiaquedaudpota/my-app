@@ -18,11 +18,6 @@ pipeline {
             steps {
               sh 'mvn sonar:sonar -Dsonar.login=8d0f68f61c197098070494aa0ab186be71b9260f'
             }
-            post {
-                success {
-                    junit 'target/surefire-reports/**/*.xml'
-                }
-            }
         }
     }
 }
