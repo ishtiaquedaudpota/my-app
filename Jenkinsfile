@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+        maven 'Maven'
+    }
     stages {
         stage('Build && SonarQube analysis') {
             steps {
