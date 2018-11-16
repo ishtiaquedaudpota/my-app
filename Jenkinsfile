@@ -1,26 +1,25 @@
 pipeline {
     agent any
-    tools {
-        maven 'maven'
-        jdk 'java'
-    }
     stages {
-        stage ('Initialize') {
+        stage('SCM') {
             steps {
-                sh '''
-                    echo "PATH = ${PATH}"
-                    echo "M2_HOME = ${M2_HOME}"
-                '''
+                git url: 'https://github.com/ishtiaquedaudpota/my-app.git'
             }
         }
-        stage ('Package') {
+        stage('Build && SonarQube analysis') {
             steps {
-              sh 'mvn package'
+                withSonarQubeEnv('SonarServer') {
+                    withMaven(maven:'Maven') {
+                        sh 'mvn clean package sonar:sonar'
+                    }
+                }
             }
         }
-        stage ('Analyse') {
+        stage("Quality Gate") {
             steps {
-              sh 'mvn sonar:sonar'
+                timeout(time: 1, unit: 'HOURS') {
+                    waitForQualityGate abortPipeline: true
+                }
             }
         }
     }
