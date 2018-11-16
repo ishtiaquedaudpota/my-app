@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-           network create mynet
+           network 'mynet'
 	   image 'postgres'
 	   args '--name postgres -e POSTGRES_USER=sonar -e POSTGRES_PASSWORD=sonar -d -p 5432:5432'
 	}
