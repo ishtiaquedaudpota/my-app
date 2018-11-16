@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Build && SonarQube analysis') {
             steps {
-                withSonarQubeEnv('SonarQube') {
+                withSonarQubeEnv('SonarServer') {
                     withMaven(maven:'Maven') {
                         sh 'mvn clean package sonar:sonar'
                     }
