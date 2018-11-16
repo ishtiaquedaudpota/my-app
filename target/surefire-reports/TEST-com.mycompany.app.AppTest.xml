@@ -5,7 +5,7 @@
     <property name="sun.boot.library.path" value="/opt/jdk8/jre/lib/amd64"/>
     <property name="java.vm.version" value="25.191-b12"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
-    <property name="maven.multiModuleProjectDirectory" value="/home/sonarqube/my-app"/>
+    <property name="maven.multiModuleProjectDirectory" value="/opt/repo"/>
     <property name="java.vendor.url" value="http://java.oracle.com/"/>
     <property name="path.separator" value=":"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value="unknown"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="/home/sonarqube/my-app"/>
+    <property name="user.dir" value="/opt/repo"/>
     <property name="java.runtime.version" value="1.8.0_191-b12"/>
     <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
     <property name="java.endorsed.dirs" value="/opt/jdk8/jre/lib/endorsed"/>
@@ -34,12 +34,12 @@
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="os.version" value="3.10.0-862.14.4.el7.x86_64"/>
     <property name="library.jansi.path" value="/opt/maven35/lib/jansi-native"/>
-    <property name="user.home" value="/home/sonarqube"/>
+    <property name="user.home" value="/root"/>
     <property name="user.timezone" value="Australia/Perth"/>
     <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
     <property name="java.specification.version" value="1.8"/>
     <property name="file.encoding" value="UTF-8"/>
-    <property name="user.name" value="sonarqube"/>
+    <property name="user.name" value="root"/>
     <property name="java.class.path" value="/opt/maven35/boot/plexus-classworlds-2.5.2.jar"/>
     <property name="java.vm.specification.version" value="1.8"/>
     <property name="sun.arch.data.model" value="64"/>
