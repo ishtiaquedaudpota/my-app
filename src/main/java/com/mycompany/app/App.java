@@ -2,7 +2,7 @@ package com.mycompany.app;
 import org.apache.log4j.Logger;
 
 public class App {
-    final static Logger logger = Logger.getLogger(App.class);
+    static final Logger logger = Logger.getLogger(App.class);
 
     public static void main( String[] args ) {
         (new App()).log("Hello World!");        
