@@ -8,7 +8,7 @@ pipeline {
                     args '--name postgres -e POSTGRES_USER=sonar -e POSTGRES_PASSWORD=sonar -d -p 5432:5432 --net mynet postgres'
                 }
 			}
-			steps { sh 'psql --version ' }
+	    steps { sh 'psql --version' }
         }
         stage("Sonarqube") {
             agent {
@@ -17,9 +17,9 @@ pipeline {
                     args '--name sonarqube -p 9000:9000 -e SONARQUBE_JDBC_USERNAME=sonar -e SONARQUBE_JDBC_PASSWORD=sonar -e SONARQUBE_JDBC_URL=jdbc:postgresql://postgres:5432/sonar -d --net mynet sonarqube'
                 }
             }
-			steps { sh ' ' }
-        }
-		stage('wait') {
+	    steps { sh ' ' }
+        } 
+	stage('wait') {
             steps {
                 input "Does the staging environment look ok?"
             }
