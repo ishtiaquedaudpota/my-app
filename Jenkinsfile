@@ -1,17 +1,28 @@
 pipeline {
     agent none
     stages {
-        stage('Back-end') {
+        stage("Postgres") {
             agent {
-                docker { image 'maven:3-alpine' }
-            }
-            steps { sh ' ' }
+                docker {
+                    image 'postgres'
+                    args '--name postgres -e POSTGRES_USER=sonar -e POSTGRES_PASSWORD=sonar -d -p 5432:5432 --net mynet postgres'
+                }
+			}
+			steps { sh 'psql --version ' }
         }
-        stage('Front-end') {
+        stage("Sonarqube") {
             agent {
-                docker { image 'node:7-alpine' }
+                docker {
+                    image 'sonarqube'
+                    args '--name sonarqube -p 9000:9000 -e SONARQUBE_JDBC_USERNAME=sonar -e SONARQUBE_JDBC_PASSWORD=sonar -e SONARQUBE_JDBC_URL=jdbc:postgresql://postgres:5432/sonar -d --net mynet sonarqube'
+                }
             }
-            steps { sh ' ' }
+			steps { sh ' ' }
+        }
+		stage('wait') {
+            steps {
+                input "Does the staging environment look ok?"
+            }
         }
     }
 }
