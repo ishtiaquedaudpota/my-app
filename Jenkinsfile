@@ -5,13 +5,13 @@ pipeline {
             agent {
                 docker { image 'maven:3-alpine' }
             }
-            steps { }
+            steps { sh ' ' }
         }
         stage('Front-end') {
             agent {
                 docker { image 'node:7-alpine' }
             }
-            steps { }
+            steps { sh ' ' }
         }
     }
 }
