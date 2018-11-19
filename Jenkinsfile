@@ -17,10 +17,5 @@ pipeline {
                 }
             }
         }
-		stage('wait') {
-            steps {
-                input "Does the staging environment look ok?"
-            }
-        }
     }
 }
