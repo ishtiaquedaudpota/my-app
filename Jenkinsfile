@@ -1,22 +1,21 @@
 pipeline {
-    agent {
-        docker { image 'ishtiaquedaudpota/sonarqube:latest' }
-    }
-
-    tools { maven 'Maven 3.5.4' }
-
+    agent none
     stages {
-        stage('Verify') {
-           steps { sh 'mvn clean verify sonar:sonar' }
+        stage('Back-end') {
+            agent {
+                docker { image 'maven:3-alpine' }
+            }
+            steps {
+                sh 'mvn --version'
+            }
         }
-        stage('Build') {
-           steps { sh 'mvn clean install' }
-        }
-        stage('Analyse') {
-           steps { sh 'mvn sonar:sonar' }
-        }
-        stage('Wait') {
-           steps { input "Does the staging environment look ok?" }
+        stage('Front-end') {
+            agent {
+                docker { image 'node:7-alpine' }
+            }
+            steps {
+                sh 'node --version'
+            }
         }
     }
 }
