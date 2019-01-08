@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        docker { image 'ishtiaquedaudpota/sonarqube:latest' }
+        docker { image 'sonarqube:lts' }
     }
 
     tools { maven 'Maven 3.5.4' }
