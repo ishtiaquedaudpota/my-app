@@ -7,7 +7,9 @@ pipeline {
     
     stages {
        stage('Test') { 
-          steps { }
+          steps { 
+		sh 'mvn sonar:sonar'
+	  }
        }
     }
 }
