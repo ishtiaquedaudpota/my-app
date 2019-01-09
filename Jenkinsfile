@@ -1,8 +1,15 @@
-node {
-   stage('Prepare') {
-        app = docker.build("mycentos:latest")
-   }
-   stage('Build') {
-        app.inside { sh 'mvn clean package' }
-   }
+pipeline {
+    agent {
+        docker {
+            image 'maven:3.6-jdk-8'
+            args '-v $HOME/.m2:/root/.m2'
+        }
+    }
+    stages {
+        stage('Build') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+    }
 }

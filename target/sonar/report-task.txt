@@ -1,6 +1,0 @@
-projectKey=com.mycompany.app:my-app
-serverUrl=http://localhost:9000
-serverVersion=7.1.0.11001
-dashboardUrl=http://localhost:9000/dashboard/index/com.mycompany.app:my-app
-ceTaskId=AWcqABzaDthxoRk9aWY0
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AWcqABzaDthxoRk9aWY0
