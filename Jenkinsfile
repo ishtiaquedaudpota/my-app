@@ -1,5 +1,5 @@
 node {
-    docker.image('mycento:latest') {
+    docker.image('mycentos:latest') {
         stage('Prepare') {
            sh '''
               git --version
