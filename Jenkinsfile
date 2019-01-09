@@ -1,9 +1,16 @@
 pipeline {
-    agent { dockerfile true }
+    agent { 
+       docker { image 'mycentos:latest' }
+    }
+
     stages {
         stage('Test') {
             steps {
-                sh 'pwd'
+                sh '''
+		   git --version
+		   mvn --version
+		   java -version
+		 '''
             }
         }
     }
