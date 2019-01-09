@@ -5,6 +5,5 @@ node {
               mvn --version
               java -version
            '''
-        }
     }
 }
