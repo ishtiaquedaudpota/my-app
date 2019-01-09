@@ -1,6 +1,8 @@
 node {
-   stage('Build') {
+   stage('Prepare') {
         app = docker.build("mycentos:latest")
-        app.inside { sh 'mvn -v' } 
+   }
+   stage('Build') {
+        app.inside { sh 'mvn clean package' }
    }
 }
