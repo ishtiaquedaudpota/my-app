@@ -7,15 +7,15 @@ pipeline {
         stage('Test') {
             steps {
                 sh '''
-		   git --version
-		   mvn --version
-		   java -version
+		   id
+		   whoami
+		   pwd
 		 '''
             }
         }
         stage('Build') {
             steps {
-              sh 'mvn clean package'
+              sh 'mvn -v'
             }
         }
     }
