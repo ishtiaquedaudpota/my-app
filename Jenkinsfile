@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'mymaven:latest'
+            image 'mycentos:latest'
             args '-v $HOME/.m2:/root/.m2'
         }
     }
