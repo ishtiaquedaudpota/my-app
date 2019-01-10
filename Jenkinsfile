@@ -3,6 +3,8 @@ pipeline {
         docker {
             image 'mycentos:latest'
             args '-v $HOME/.m2:/root/.m2'
+	    args '-e http_proxy=http://192.168.56.101:3128'
+	    args '-e https_proxy=http://192.168.56.101:3128'
         }
     }
     stages {
