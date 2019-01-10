@@ -11,7 +11,7 @@ pipeline {
                 sh '''
                    id
                    pwd
-                   maven clean package
+                   mvn clean package
                 ''' 
             }
         }
