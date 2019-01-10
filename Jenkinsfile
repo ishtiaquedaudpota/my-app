@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'mymaven:latest'
-            args '-u root -v $HOME/.m2:/root/.m2 -e http_proxy=http://192.168.56.101:3128 -e https_proxy=http://192.168.56.101:3128'
+            args '-u jenkins -v $HOME/.m2:/root/.m2 -e http_proxy=http://192.168.56.101:3128 -e https_proxy=http://192.168.56.101:3128'
         }
     }
     stages {
@@ -13,6 +13,7 @@ pipeline {
                    pwd
 		   echo $http_proxy
 		   echo $https_proxy
+	           echo $HOME
                    mvn clean package
                 ''' 
             }
