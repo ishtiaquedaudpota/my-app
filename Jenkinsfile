@@ -8,7 +8,12 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'mvn clean package'
+                sh '''
+	           id
+		   whoami
+		   pwd		
+		   mvn clean package
+                '''
             }
         }
     }
