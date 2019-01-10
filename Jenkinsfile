@@ -1,20 +1,8 @@
-pipeline {
-    agent {
-        docker {
-            image 'mymaven:latest'
-            args '-v $HOME/.m2:/root/.m2'
-        }
-    }
-    stages {
-        stage('Build') {
-            steps {
-                sh '''
-	           id
-		   pwd	
-		   whoami
-		   mvn clean package
-                '''
-            }
-        }
-    }
+node {
+   docker.image('mycentos:latest'):inside('-u jenkins') {
+      sh 'whoami'
+      sh 'id'
+      sh 'pwd'
+   }	
 }
+
