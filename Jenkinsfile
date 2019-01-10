@@ -10,8 +10,8 @@ pipeline {
             steps {
                 sh '''
 	           id
+		   pwd	
 		   whoami
-		   pwd		
 		   mvn clean package
                 '''
             }
