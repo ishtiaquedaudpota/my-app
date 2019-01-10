@@ -11,6 +11,8 @@ pipeline {
                 sh '''
                    id
                    pwd
+		   echo $http_proxy
+		   echo $https_proxy
                    mvn clean package
                 ''' 
             }
