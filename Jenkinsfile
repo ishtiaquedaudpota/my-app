@@ -14,6 +14,7 @@ pipeline {
 		   #git --version
 		   mvn --version
 		   java -version
+		   echo ${PROXY}
 		 '''
             }
         }
