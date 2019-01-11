@@ -6,7 +6,7 @@ pipeline {
         }
     }
     stages {
-        stage('Build') {
+        stage('Prepare') {
             steps {
                 sh '''
                    id
@@ -18,5 +18,27 @@ pipeline {
                 ''' 
             }
         }
+        stage('Build') {
+	    when {
+                branch 'dev'
+            }
+	    steps {
+	       sh '''
+                  echo "stage=Build"
+                  echo "branch=Prod"
+               '''  
+	    }
+	}
+        stage('Deploy') {
+	    when {
+                branch 'prod'
+            }
+	    steps {
+	       sh '''
+                  echo "stage=Deploy"
+                  echo "branch=Prod"
+               '''  
+	    }
+	}
     }
 }
