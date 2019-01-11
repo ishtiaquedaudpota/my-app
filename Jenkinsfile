@@ -1,14 +1,9 @@
 pipeline {
-    environment {
-  	HTTPS_PROXY = '${params.PROXY}'
-  	HTTP_PROXY = '${params.PROXY}'
-  	PROXY_ENABLED = 'TRUE'
-    }
 
     agent { 
        docker { 
 		image 'mycentos:latest'
-		args '-u root -e http_proxy=$HTTP_PROXY -e https_proxy=$HTTP_PROXY' 
+		args '-u root -e http_proxy="${params.PROXY}" -e https_proxy="${params.PROXY}"' 
        }
 
     }
