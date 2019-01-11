@@ -3,7 +3,7 @@ pipeline {
     agent { 
        docker { 
 		image 'mycentos:latest'
-		args '-u jenkins -v $HOME/.m2:$HOME/.m2' 
+		args '-u jenkins -v $HOME/.m2:/home/jenkins/.m2' 
        }
 
     }
