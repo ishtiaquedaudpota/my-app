@@ -3,13 +3,13 @@ pipeline {
     agent { 
        docker { 
 		image 'mycentos:latest'
-		args '-u jenkins' 
+		args '-u jenkins -v $HOME/.m2:/$HOME/.m2' 
        }
 
     }
 
     stages {
-        stage('Test') {
+        stage('Prepare') {
             steps {
                 sh '''
 		   git --version
@@ -24,6 +24,11 @@ pipeline {
         stage('Build') {
             steps {
               sh 'mvn clean package'
+            }
+        }
+        stage('Wait') {
+            steps {
+	      input 'Everything looks ok?'
             }
         }
     }
