@@ -2,7 +2,7 @@ pipeline {
     agent { 
        docker { 
 		image 'mycentos:latest'
-		args '-u root -e http_proxy=${PROXY} -e https_proxy=${PROXY}' 
+		args '-u root -e http_proxy=${params.PROXY} -e https_proxy=${params.PROXY}' 
        }
 
     }
