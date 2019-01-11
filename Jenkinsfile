@@ -12,10 +12,12 @@ pipeline {
         stage('Test') {
             steps {
                 sh '''
-		   #git --version
+		   git --version
 		   mvn --version
 		   java -version
 		   echo $http_proxy
+		   id
+		   whoami
 		 '''
             }
         }
