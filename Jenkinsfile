@@ -1,44 +1,22 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3.6.0-jdk-8-alpine'
-            args '-u root -v $HOME/.m2:/root/.m2 -e http_proxy=http://192.168.56.101:3128 -e https_proxy=http://192.168.56.101:3128'
-        }
+    agent { 
+       docker { image 'mycentos:latest' }
     }
+
     stages {
-        stage('Prepare') {
+        stage('Test') {
             steps {
                 sh '''
-                   id
-                   pwd
-		   echo $http_proxy
-		   echo $https_proxy
-	           echo $HOME
-                   mvn clean package
-                ''' 
+		   git --version
+		   mvn --version
+		   java -version
+		 '''
             }
         }
         stage('Build') {
-	    when {
-                branch 'dev'
+            steps {
+              sh 'mvn clean package'
             }
-	    steps {
-	       sh '''
-                  echo "stage=Build"
-                  echo "branch=Prod"
-               '''  
-	    }
-	}
-        stage('Deploy') {
-	    when {
-                branch 'prod'
-            }
-	    steps {
-	       sh '''
-                  echo "stage=Deploy"
-                  echo "branch=Prod"
-               '''  
-	    }
-	}
+        }
     }
 }
