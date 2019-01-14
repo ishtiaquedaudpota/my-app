@@ -26,6 +26,14 @@ pipeline {
               sh 'mvn clean package'
             }
         }
+	stage('Analyse') {
+             steps {
+                sh '''
+                   ## 3) build webcms plugins
+                   mvn sonar:sonar -Dsonar.url=${params.SONAR_HOST} -Dsonar.login=${params.SONAR_TOKEN}
+                '''
+              }
+        }
         stage('Wait') {
             steps {
 	      input 'Everything looks ok?'
