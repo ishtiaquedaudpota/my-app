@@ -30,7 +30,7 @@ pipeline {
              steps {
                 sh '''
                    ## 3) build webcms plugins
-                   mvn sonar:sonar -Dsonar.url=${params.SONAR_HOST} -Dsonar.login=${params.SONAR_TOKEN}
+                   mvn sonar:sonar -Dsonar.url=${SONAR_HOST} -Dsonar.login=${SONAR_TOKEN}
                 '''
               }
         }
