@@ -21,14 +21,14 @@ pipeline {
 		 '''
             }
         }
-        stage('Build and Analyse') {
-            steps {
-              sh 'mvn clean package sonar:sonar -Dsonar.host.url=$SONAR_HOST'
-            }
-        }
         stage('Wait') {
             steps {
 	      input 'Everything looks ok?'
+            }
+        }
+        stage('Build and Analyse') {
+            steps {
+              sh 'mvn clean package sonar:sonar -Dsonar.host.url=$SONAR_HOST'
             }
         }
     }
