@@ -21,18 +21,10 @@ pipeline {
 		 '''
             }
         }
-        stage('Build') {
+        stage('Build and Analyse') {
             steps {
-              sh 'mvn clean package'
+              sh 'mvn clean package sonar:sonar -Dsonar.host.url=$SONAR_HOST'
             }
-        }
-	stage('Analyse') {
-             steps {
-                sh '''
-                   ## 3) build webcms plugins
-                   mvn sonar:sonar -Dsonar.url=${SONAR_HOST} -Dsonar.login=${SONAR_TOKEN}
-                '''
-              }
         }
         stage('Wait') {
             steps {
