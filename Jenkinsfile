@@ -2,8 +2,8 @@ pipeline {
 
     agent { 
        docker { 
-		image 'mycentos:latest'
-		args '-u jenkins -v $HOME/.m2:/home/jenkins/.m2' 
+		image '${IMAGE}'
+		args '-u ${USER} -v $HOME/.m2:/home/jenkins/.m2' 
        }
 
     }
@@ -28,7 +28,7 @@ pipeline {
         }
         stage('Build and Analyse') {
             steps {
-              sh 'mvn clean package sonar:sonar -Dsonar.host.url=$SONAR_HOST'
+              sh 'mvn clean package sonar:sonar -Dsonar.host.url=${SONAR_HOST}' -Dsonar.login=${SONAR_TOKEN}
             }
         }
     }
