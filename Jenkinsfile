@@ -3,7 +3,6 @@ pipeline {
     agent { 
        docker { 
 		image 'mycentos'
-		args '-u test'
        }
     }
 
