@@ -5,28 +5,28 @@ pipeline {
 		image 'mycentos'
        }
     }
-
     stages {
-        stage('Prepare') {
+        stage('SCM') {
             steps {
-                sh '''
-		   git --version
-		   mvn --version
-		   java -version
-		   echo $http_proxy
-		   id
-		   whoami
-		 '''
+                git url: '${REPO}'
             }
         }
-        stage('Wait') {
+        stage('build && SonarQube analysis') {
             steps {
-	      input 'Everything looks ok?'
+                withSonarQubeEnv('My SonarQube Server') {
+                    // Optionally use a Maven environment you've configured already
+                    sh 'mvn clean package sonar:sonar'
+                }
             }
         }
-        stage('Build and Analyse') {
+        stage("Quality Gate") {
             steps {
-              sh 'mvn clean package sonar:sonar -Dsonar.host.url=${SONAR_HOST} -Dsonar.login=${SONAR_TOKEN}'
+                timeout(time: 1, unit: 'MINUTES') {
+                    // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
+                    // true = set pipeline to UNSTABLE, false = don't
+                    // Requires SonarQube Scanner for Jenkins 2.7+
+                    waitForQualityGate abortPipeline: true
+                }
             }
         }
     }
