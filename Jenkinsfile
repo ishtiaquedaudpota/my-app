@@ -28,7 +28,7 @@ pipeline {
         }
         stage('Build and Analyse') {
             steps {
-              sh 'mvn clean package sonar:sonar -Dsonar.host.url=${SONAR_HOST}' -Dsonar.login=${SONAR_TOKEN}
+              sh 'mvn clean package sonar:sonar -Dsonar.host.url=${SONAR_HOST} -Dsonar.login=${SONAR_TOKEN}'
             }
         }
     }
