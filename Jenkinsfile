@@ -3,9 +3,8 @@ pipeline {
     agent { 
        docker { 
 		image '${IMAGE}'
-		args '-u ${USER} -v $HOME/.m2:/home/jenkins/.m2' 
+		args '${ARGS}' 
        }
-
     }
 
     stages {
