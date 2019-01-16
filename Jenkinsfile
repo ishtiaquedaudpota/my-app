@@ -2,8 +2,7 @@ pipeline {
 
     agent { 
        docker { 
-		image '${IMAGE}'
-		args  '${ARGS}'
+		image 'centos'
        }
     }
 
