@@ -12,7 +12,10 @@ pipeline {
         	}
     	     }
 	     steps { 
-                sh 'mvn clean package sonar:sonar -Dsonar.host.url=${SONAR_URL} -Dsonar.login=${SONAR_TOKEN}'
+                sh '''
+			set MAVEN_OPTS= -Dhttp.proxyHost=192.168.56.101 -Dhttp.proxyPort=3128
+			mvn clean package sonar:sonar -Dsonar.host.url=${SONAR_URL} -Dsonar.login=${SONAR_TOKEN}
+		'''
             }
         }
     }
