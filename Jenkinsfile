@@ -2,15 +2,7 @@ pipeline {
     agent any
     stages {
 	stage ('Start Sonarqube') {
-	   steps {
-		   sh '''
-		   	ls -l
-			pwd
-			whoami
-	   		docker info
-			#./sonar-run.sh start
-		    '''	
-		}
+	   steps { sh './sonar-run.sh start' }
 	}
 	stage('Build') {
             agent {
@@ -20,16 +12,13 @@ pipeline {
         	}
     	     }
 	     steps { 
-                sh '''
-			ls -l
-			#mvn clean package sonar:sonar -Dsonar.host.url=${SONAR_URL} -Dsonar.login=${SONAR_TOKEN}
-		'''
+                sh 'mvn clean package sonar:sonar -Dsonar.host.url=${SONAR_URL} -Dsonar.login=${SONAR_TOKEN}'
             }
         }
     }
      post {
      	   always {
-        	//sh './sonar-run.sh stop'
+        	sh './sonar-run.sh stop'
             	deleteDir()
            }
      }
