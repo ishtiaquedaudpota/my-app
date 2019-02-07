@@ -6,10 +6,11 @@ pipeline {
         }
     }
     stages {
-        stage ('Start Sonarqube')
+	    stage ('Start Sonarqube') {
 		steps {
 			sh 'sonar-run.sh start'
 		}
+	    }
 	stage('Build') {
             steps {
                 sh '''
