@@ -7,7 +7,15 @@ pipeline {
     }
     stages {
 	stage ('Start Sonarqube') {
-	   steps { sh './sonar-run.sh start' }
+	   steps {
+		   sh '''
+		   	ls -l
+			pwd
+			whoami
+	   		docker info
+			#./sonar-run.sh start
+		    '''	
+		}
 	}
 	stage('Build') {
             steps {
@@ -19,7 +27,7 @@ pipeline {
     }
      post {
      	   always {
-        	sh './sonar-run.sh stop'
+        	//sh './sonar-run.sh stop'
             	deleteDir()
            }
      }
