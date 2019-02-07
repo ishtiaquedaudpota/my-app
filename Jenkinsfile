@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3-alpine'
-            args '-u jenkins -v $HOME/.m2:/root/.m2 -e http_proxy=${PROXY_URL} -e https_proxy=${PROXY_URL}'
-        }
-    }
+    agent none
     stages {
 	stage ('Start Sonarqube') {
 	   steps {
@@ -18,7 +13,13 @@ pipeline {
 		}
 	}
 	stage('Build') {
-            steps {
+            agent {
+        	docker {
+            		image 'maven:3-alpine'
+            		args '$HOME/.m2:/root/.m2 -e http_proxy=${PROXY_URL} -e https_proxy=${PROXY_URL}'
+        	}
+    	     }
+	     steps {
                 sh '''
 		    mvn clean package sonar:sonar -Dsonar.host.url=${SONAR_URL} -Dsonar.login=${SONAR_TOKEN}
 		'''
