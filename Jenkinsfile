@@ -19,7 +19,7 @@ pipeline {
     }
      post {
      	   always {
-        	sonar-run.sh stop
+        	sh './sonar-run.sh stop'
             	deleteDir()
            }
      }
