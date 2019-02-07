@@ -1,33 +1,27 @@
 pipeline {
-
-    agent { 
-       docker { 
-		image 'mycentos'
-       }
+    agent {
+        docker {
+            image 'maven:3-alpine'
+            args '-v $HOME/.m2:/root/.m2 -e http_proxy=${PROXY_URL} -e https_proxy=${PROXY_URL}'
+        }
     }
     stages {
-        stage('SCM') {
+        stage ('Start Sonarqube')
+		steps {
+			sh '''
+				sonar-run.sh start
+			'''
+		}
+	stage('Build') {
             steps {
-                git url: '${REPO}'
-            }
-        }
-        stage('build && SonarQube analysis') {
-            steps {
-                withSonarQubeEnv('My SonarQube Server') {
-                    // Optionally use a Maven environment you've configured already
-                    sh 'mvn clean package sonar:sonar'
-                }
-            }
-        }
-        stage("Quality Gate") {
-            steps {
-                timeout(time: 1, unit: 'MINUTES') {
-                    // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
-                    // true = set pipeline to UNSTABLE, false = don't
-                    // Requires SonarQube Scanner for Jenkins 2.7+
-                    waitForQualityGate abortPipeline: true
-                }
+                sh ''mvn clean package sonar:sonar -Dsonar.host.url=${SONAR_URL} -Dsonar.login=${SONAR_TOKEN}'
             }
         }
     }
+     post {
+     	   always {
+        	    sonar-run.sh stop
+            		deleteDir()
+           }
+     }
 }
