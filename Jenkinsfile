@@ -6,15 +6,13 @@ pipeline {
         }
     }
     stages {
-	    stage ('Start Sonarqube') {
-		steps {
-			sh 'sonar-run.sh start'
-		}
-	    }
+	stage ('Start Sonarqube') {
+	   steps { sh './sonar-run.sh start' }
+	}
 	stage('Build') {
             steps {
                 sh '''
-			mvn clean package sonar:sonar -Dsonar.host.url=${SONAR_URL} -Dsonar.login=${SONAR_TOKEN}
+		    mvn clean package sonar:sonar -Dsonar.host.url=${SONAR_URL} -Dsonar.login=${SONAR_TOKEN}
 		'''
             }
         }
