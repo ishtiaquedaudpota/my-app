@@ -21,8 +21,8 @@ pipeline {
     }
      post {
      	   always {
-        	    sonar-run.sh stop
-            		deleteDir()
+        	sonar-run.sh stop
+            	deleteDir()
            }
      }
 }
