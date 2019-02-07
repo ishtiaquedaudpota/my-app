@@ -3,22 +3,23 @@
 NETWORK_NAME=sonarnet
 SONAR_NAME=sonarqube
 SONAR_PORT=9000
-SONAR_VERSION=lts #Latest version
+SONAR_VERSION=lts      #Latest version
 POSTGRES_NAME=postgres
 POSTGRES_USER=sonar
 POSTGRES_PASSWORD=sonar
 POSTGRES_PORT=5432
-POSTGRES_VERSION=10.6 # Its the tested version
+POSTGRES_VERSION=10.6   # Its the tested version
 PLUGIN_DIR=$(dirname $0)/plugins
  
-if [ -z $1 ] &amp;amp;amp;amp;amp;&amp;amp;amp;amp;amp; [ -n $1 ]; then
-echo "Usage: ./sonar-docker.sh start|stop|status"
+if [ -z $1 ] && [ -n $1 ]; then
+echo "Usage: ./sonar-run.sh start|stop|status"
 exit 1
 fi
  
 if [ $1 == "start" ]; then
 echo -e "\n---Creating docker network $NETWORK_NAME---"
 docker network create $NETWORK_NAME
+ 
  
 echo -e "\n---Creating Postgresql container---"
 docker run -d \
@@ -43,7 +44,7 @@ docker run -d \
 -p $SONAR_PORT:$SONAR_PORT \
 sonarqube:$SONAR_VERSION
  
-#docker cp $PLUGIN_DIR/checkstyle-sonar-plugin-4.11.jar sonarqube:/opt/sonarqube/extensions/plugins/
+# docker cp $PLUGIN_DIR/checkstyle-sonar-plugin-4.11.jar sonarqube:/opt/sonarqube/extensions/plugins/
 elif [ $1 == "stop" ]; then
 echo -e "\n--- Cleanup Sonarqube container ---"
 docker stop $SONAR_NAME
@@ -60,5 +61,5 @@ docker network rm $NETWORK_NAME
 elif [ $1 == "status" ]; then
 docker ps -a
 else
-echo "Usage: ./sonar-docker.sh start|stop|status"
+echo "Usage: ./sonar-run.sh start|stop|status"
 fi
