@@ -16,12 +16,13 @@ pipeline {
             agent {
         	docker {
             		image 'maven:3-alpine'
-            		args '$HOME/.m2:/root/.m2 -e http_proxy=${PROXY_URL} -e https_proxy=${PROXY_URL}'
+            		args '-v $HOME/.m2:/root/.m2 -e http_proxy=${PROXY_URL} -e https_proxy=${PROXY_URL}'
         	}
     	     }
-	     steps {
+	     steps { 
                 sh '''
-		    mvn clean package sonar:sonar -Dsonar.host.url=${SONAR_URL} -Dsonar.login=${SONAR_TOKEN}
+			ls -l
+			#mvn clean package sonar:sonar -Dsonar.host.url=${SONAR_URL} -Dsonar.login=${SONAR_TOKEN}
 		'''
             }
         }
