@@ -8,7 +8,7 @@ pipeline {
             agent {
         	docker {
             		image 'maven:3-alpine'
-            		args '-v $HOME/.m2:/root/.m2 -e http_proxy=${PROXY_URL} -e https_proxy=${PROXY_URL}'
+            		args '-e http_proxy=${PROXY_URL} -e https_proxy=${PROXY_URL}'
         	}
     	     }
 	     steps { 
